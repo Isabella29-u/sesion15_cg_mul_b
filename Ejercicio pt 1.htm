@@ -1,0 +1,76 @@
+<!DOCTYPE html >
+    <html>
+    <head>
+    <meta charset = "utf-8"/>
+    <style>
+    body {
+        background - color: #ffffff;
+        margin: 0;
+        overflow: hidden;
+    } </style> </head>
+    <body>
+    <button>Aceptar</button>
+<!--- https://ajax.googleapis.com/ajax/libs/threejs/r76/three.min.js -->
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/three.js/95/three.min.js"> </script>
+<script>
+var camera, scene, renderer;
+var geometria, material, mesh;
+var clock;
+
+function cono(x, y, z, px, py, pz, material, color, wf) {
+	geometria = new THREE.ConeGeometry(x, y, z);
+    switch(material) {
+    	case 'Basic': material = new THREE.MeshBasicMaterial({color: color, wireframe: wf}); break;
+    	case 'Standard': material = new THREE.MeshStandardMaterial({color: color, wireframe: wf}); break;
+    	case 'Physical': material = new THREE.MesPhysicalMaterial({color: color, wireframe: wf}); break;
+    	case 'Phong': material = new THREE.MeshPhongMaterial({color: color, wireframe: wf}); break;
+    	case 'Lambert': material = new THREE.MeshLambertMaterial({color: color, wireframe: wf}); break;
+    }
+    cone = new THREE.Mesh(geometria, material);
+    scene.add(cone);
+    cone.position.set(px, py, pz);
+
+    return cone;
+}
+
+function init() {
+    renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth*0.99, window.innerHeight*0.99);
+    document.body.appendChild(renderer.domElement);
+    scene = new THREE.Scene();
+ 
+
+     const geometry = new THREE.ConeGeometry( 1, 1, 10 );
+	const material = new THREE.MeshBasicMaterial( {color: 0x8c004b} );
+	const cone = new THREE.Mesh( geometry, material );
+	scene.add( cone );
+	cone.position.set(1,1,1);
+	//cone.geometry.rotateX(-Math.PI/2);
+	//cone.geometry.rotateY(Math.PI/4);
+	//cone.geometry.rotateZ(-Math.PI/2);
+
+    const axesHelper = new THREE.AxesHelper(10);
+    scene.add(axesHelper);
+
+    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.set(6, 6, 6);
+    camera.lookAt(cone.position);
+    clock = new THREE.Clock();
+    window.addEventListener('resize', onWindowResize, false);
+}
+
+var dir = 1;
+
+function onWindowResize() {
+    windowHalfX = window.innerWidth / 2;
+    windowHalfY = window.innerHeight / 2;
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+}
+
+init();
+renderer.render(scene, camera);
+</script>
+</body>
+</html>
