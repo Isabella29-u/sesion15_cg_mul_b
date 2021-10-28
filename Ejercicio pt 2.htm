@@ -19,13 +19,7 @@ var clock;
 
 function cubo(x, y, z, px, py, pz, material, color, wf) {
 	geometria = new THREE.ConeGeometry(x, y, z);
-    switch(material) {
-    	case 'Basic': material = new THREE.MeshBasicMaterial({color: color, wireframe: wf}); break;
-    	case 'Standard': material = new THREE.MeshStandardMaterial({color: color, wireframe: wf}); break;
-    	case 'Physical': material = new THREE.MesPhysicalMaterial({color: color, wireframe: wf}); break;
-    	case 'Phong': material = new THREE.MeshPhongMaterial({color: color, wireframe: wf}); break;
-    	case 'Lambert': material = new THREE.MeshLambertMaterial({color: color, wireframe: wf}); break;
-    }
+    
     cone = new THREE.Mesh(geometria, material);
     scene.add(cone);
     cone.position.set(px, py, pz);
@@ -39,7 +33,7 @@ function init() {
     document.body.appendChild(renderer.domElement);
     scene = new THREE.Scene();
  
-
+	
      const geometry = new THREE.ConeGeometry( 1, 3, 10 );
 	const material = new THREE.MeshBasicMaterial( {color: 0x8c004b} );
 	const cone = new THREE.Mesh( geometry, material );

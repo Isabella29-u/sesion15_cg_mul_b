@@ -39,22 +39,22 @@ function init() {
     document.body.appendChild(renderer.domElement);
     scene = new THREE.Scene();
  
-
-     const geometry = new THREE.ConeGeometry( 1, 1, 10 );
-	const material = new THREE.MeshBasicMaterial( {color: 0x8c004b} );
+	 var t = 1;
+     const geometry = new THREE.ConeGeometry( t, t, 10 );
+	const material = new THREE.MeshBasicMaterial( {color: 0xffffff} );
 	const cone = new THREE.Mesh( geometry, material );
 	scene.add( cone );
 	cone.position.set(1,1,1);
-	//cone.geometry.rotateX(-Math.PI/2);
+	cone.geometry.rotateX(Math.PI/1.2);
 	//cone.geometry.rotateY(Math.PI/4);
 	//cone.geometry.rotateZ(-Math.PI/2);
 
     const axesHelper = new THREE.AxesHelper(10);
     scene.add(axesHelper);
 
-    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
-    camera.position.set(6, 6, 6);
-    camera.lookAt(cone.position);
+    camera = new THREE.PerspectiveCamera(10, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.set(5, 50, 5);
+    camera.lookAt(scene.position);
     clock = new THREE.Clock();
     window.addEventListener('resize', onWindowResize, false);
 }
