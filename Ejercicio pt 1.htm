@@ -18,7 +18,7 @@ var geometria, material, mesh;
 var clock;
 
 function cono(x, y, z, px, py, pz, material, color, wf) {
-	geometria = new THREE.ConeGeometry(x, y, z);
+    geometria = new THREE.ConeGeometry(x, y, z);
     switch(material) {
     	case 'Basic': material = new THREE.MeshBasicMaterial({color: color, wireframe: wf}); break;
     	case 'Standard': material = new THREE.MeshStandardMaterial({color: color, wireframe: wf}); break;
@@ -26,39 +26,49 @@ function cono(x, y, z, px, py, pz, material, color, wf) {
     	case 'Phong': material = new THREE.MeshPhongMaterial({color: color, wireframe: wf}); break;
     	case 'Lambert': material = new THREE.MeshLambertMaterial({color: color, wireframe: wf}); break;
     }
+
+    //Declarando el cono con sus características.
     cone = new THREE.Mesh(geometria, material);
+    //Añadir cono a la escena.
     scene.add(cone);
+    //Añadir características de la posición del cono.
     cone.position.set(px, py, pz);
 
     return cone;
 }
 
+//Función principal del cono.
 function init() {
     renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth*0.99, window.innerHeight*0.99);
-    document.body.appendChild(renderer.domElement);
+    renderer.setSize(window.innerWidth * 0.99, window.innerHeight * 0.99); 
+    document.body.appendChild(renderer.domElement);    
+    //ESCENA
     scene = new THREE.Scene();
- 
-	 var t = 1;
-     const geometry = new THREE.ConeGeometry( t, t, 10 );
-	const material = new THREE.MeshLambertMaterial( {color: 0xffffff} );
-	const cone = new THREE.Mesh( geometry, material );
-	scene.add( cone );
-	cone.position.set(0,0,0);
-	cone.geometry.rotateX(Math.PI/2);
 
-    const axesHelper = new THREE.AxesHelper(10);
-    scene.add(axesHelper);
+    var t = 1; //Variable para facilitar el uso de los parámetros del cono.
+    const geometry = new THREE.ConeGeometry(t, t, 10); //(radio, altura, segmentos de altura).
+    const material = new THREE.MeshLambertMaterial({ color: 0xd5d8a8 }); //Material Lambert con el color original del ejercicio.
+    const cone = new THREE.Mesh(geometry, material); //Añadir los parámetros con el material elegido.
+    scene.add(cone); //Añadir cono.
+    cone.position.set(0, 0, 0); //Posición del cono.
+    cone.geometry.rotateX(Math.PI / 2); //Rotación en X del cono.
+    cone.geometry.rotateZ(Math.PI / 2); //Rotación en Z del cono.
 
-    camera = new THREE.PerspectiveCamera(10, window.innerWidth / window.innerHeight, 0.1, 100);
-    camera.position.set(-13, 10, 30);
-    camera.lookAt(scene.position);
+    const axesHelper = new THREE.AxesHelper(10); //Ejes.
+    scene.add(axesHelper); //Añadir los ejes.
+
+    camera = new THREE.PerspectiveCamera(10, window.innerWidth / window.innerHeight, 0.1, 100); //Características de la cámara.
+    camera.position.set(-13, 10, 30); //Parámetros de la posición de la cámara.
+    camera.lookAt(scene.position); //Cámara ligada a la escena.
     clock = new THREE.Clock();
     window.addEventListener('resize', onWindowResize, false);
 
-    var light = new THREE.PointLight(0xFFFFFF);
-    light.position.set(-50, 50, 90);
-    scene.add(light);
+
+    //LUZ PARA QUE EL MATERIAL SE VEA EN LA ESCENA.
+
+    var light = new THREE.PointLight(0xFFFFFF); //La luz de la escena con el color a elección.
+    light.position.set(-50, 50, 90); //Posición de la luz.
+    scene.add(light); //Añadir la luz a la escena.
 }
 
 var dir = 1;
@@ -72,7 +82,7 @@ function onWindowResize() {
 }
 
 init();
-renderer.render(scene, camera);
-</script>
-</body>
+renderer.render(scene, camera); 
+</script> 
+</body> 
 </html>
